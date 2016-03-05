@@ -7,7 +7,7 @@ export as LED
 */
 
 package com.digistump.digicdc;
- 
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONException;
@@ -109,27 +109,27 @@ public class Digicdc extends CordovaPlugin {
               return true;
             }
           }
-          
+
           else if(ACTION_WRITE.equals(action)){
-          
+
 
 
             JSONObject arg_object = args.getJSONObject(0);
             final String strWrite = arg_object.getString("text");
-            
 
-            
 
-            
+
+
+
             cordova.getThreadPool().execute(new Runnable() {
               public void run() {
 
                   //if (!mSerial.begin(FTDriver.BAUD9600)) {
                   //  callbackContext.error("Fail");
-               
+
 
                   //}
-                  
+
                   mSerial.write(strWrite.getBytes(), strWrite.length());
 
                   //mSerial.end();
@@ -137,21 +137,21 @@ public class Digicdc extends CordovaPlugin {
 
               }
             });
-                 
-            
+
+
             return true;
           }
           else if(ACTION_READ.equals(action)){
-          
 
 
-            JSONObject arg_object = args.getJSONObject(0);
-            final String strWrite = arg_object.getString("text");
-            
 
-            
+            //JSONObject arg_object = args.getJSONObject(0);
+            //final String strWrite = arg_object.getString("text");
 
-            
+
+
+
+
             cordova.getThreadPool().execute(new Runnable() {
               public void run() {
                   String mText;
@@ -159,8 +159,9 @@ public class Digicdc extends CordovaPlugin {
                   int len;
                   int i;
                   len = mSerial.read(rbuf);
-                  
-                  mSerial.write(strWrite.getBytes(), strWrite.length());
+
+                  //mSerial.write(strWrite.getBytes(), strWrite.length());
+
                   mText = "";
                   if(len > 0) {
 
@@ -183,21 +184,21 @@ public class Digicdc extends CordovaPlugin {
 
               }
             });
-                 
-            
+
+
             return true;
           }
-  
-
-          
-        
 
 
-            
+
+
+
+
+
         } catch(Exception e) {
             System.err.println("Error");
             callbackContext.error("FAIL2");
             return false;
-        } 
+        }
     return true; }
 }
